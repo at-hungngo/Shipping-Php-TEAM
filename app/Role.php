@@ -15,7 +15,7 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'created_at', 'updated_at'
+        'id', 'name'
     ];
 
     /**
