@@ -18,9 +18,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'price_bid', 'weight',
-        'reciver_name', 'reciver_phone', 'reciver_address', 'lnglat_start', 'lnglat_end', 'status',
-        'status', 'user_id', 'shipper_id', 'id'
+        'title', 'user_id', 'shipper_id', 'id'
     ];
 
     /**

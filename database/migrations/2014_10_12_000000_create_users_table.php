@@ -21,9 +21,12 @@ class CreateUsersTable extends Migration
             $table->integer('age');
             $table->text('description');
             $table->tinyInteger('sex');
-            $table->integer('role_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 

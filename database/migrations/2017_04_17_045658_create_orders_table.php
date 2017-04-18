@@ -15,18 +15,15 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('description');
-            $table->float('weight')->default(0);
-            $table->float('price_bid')->default(0);
-            $table->string('reciver_name');
-            $table->string('reciver_address');
-            $table->string('reciver_phone');
-            $table->string('lnglat_start');
-            $table->string('lnglat_end');
-            $table->tinyInteger('status');
-            $table->integer('user_id')->unsigned();
-            $table->integer('shipper_id')->unsigned();
             $table->timestamps();
+        });
+        Schema::table('orders', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('cascade');
+            $table->integer('shipper_id')->unsigned();
+            $table->foreign('shipper_id')->references('id')->on('users')
+            ->onDelete('cascade');
         });
     }
 
