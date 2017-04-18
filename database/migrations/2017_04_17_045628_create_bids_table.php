@@ -16,6 +16,7 @@ class CreateBidsTable extends Migration
             $table->increments('id');
             $table->string('description');
             $table->float('price_bid')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
         Schema::table('bids', function (Blueprint $table) {

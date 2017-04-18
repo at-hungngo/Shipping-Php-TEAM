@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('age');
             $table->text('description');
             $table->tinyInteger('sex');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Role;
 use App\Bid;
 use App\Order;
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
+    
     /**
      * The attributes that are mass assignable.
      *

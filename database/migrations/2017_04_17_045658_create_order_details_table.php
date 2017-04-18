@@ -25,6 +25,7 @@ class CreateOrderDetailsTable extends Migration
             $table->string('longitude_end');
             $table->string('latitude_end');
             $table->tinyInteger('status');
+            $table->softDeletes();
             $table->timestamps();
         });
         Schema::table('order_details', function (Blueprint $table) {

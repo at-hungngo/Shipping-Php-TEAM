@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 use App\Role;
 use App\Bid;
@@ -10,6 +11,8 @@ use App\Order;
 
 class Order extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'orders';
     
     /**
