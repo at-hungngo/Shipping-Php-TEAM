@@ -2,20 +2,24 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Role;
+use App\Bid;
+use App\Order;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-
+    use SoftDeletes;
+    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'point', 'age', 'sex', 'description', 'role_id',
+        'id'
     ];
 
     /**
@@ -26,4 +30,34 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Roles
+     *
+     * @return Role
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    /**
+     * Bids
+     *
+     * @return bids
+     */
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
+
+    /**
+     * Orders
+     *
+     * @return orders
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id');
+    }
 }
