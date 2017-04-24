@@ -163,6 +163,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        /**
+         * Other Service Providers...
+         */
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+
         /*
          * Package Service Providers...
          */

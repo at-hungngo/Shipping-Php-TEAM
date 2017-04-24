@@ -1,15 +1,19 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Role;
 use App\Bid;
 use App\Order;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Transformable
 {
+    use TransformableTrait;
     use SoftDeletes;
     
     /**

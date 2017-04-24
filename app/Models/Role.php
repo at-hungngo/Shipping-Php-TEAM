@@ -30,4 +30,20 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    /**
+     * Id of role user or admin
+     *
+     * @param string $roleName Name of role
+     * @return id
+     */
+    public function roleId($roleName)
+    {
+        $role = $this->where('name', $roleName)->first();
+        if($role){
+            return $role->id;
+        } else {
+            return -1;
+        }
+    }
 }
