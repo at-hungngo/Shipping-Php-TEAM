@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\Contracts\UserRepository;
-use App\Validators\UserValidator;
 
 use App\Models\Role;
 
@@ -25,24 +22,15 @@ class UsersController extends Controller
     protected $repository;
 
     /**
-     * Validator
-     *
-     * @var UserValidator
-     */
-    protected $validator;
-
-    /**
      * UserController construct
      *
      * @param App\Repositories\Contracts\UserRepository $repository UserRepository
-     * @param App\Validators\UserValidator              $validator  UserValidator
      *
      * @return void
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
     }
 
 
@@ -69,8 +57,6 @@ class UsersController extends Controller
     public function store(UserCreateRequest $request)
     {
         try {
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
             $user = $this->repository->create($request->all());
 
             $response = [
@@ -81,7 +67,7 @@ class UsersController extends Controller
             if ($request->wantsJson()) {
                 return response()->json($response);
             }
-        } catch (ValidatorException $e) {
+        } catch (Exception $e) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,
@@ -136,19 +122,17 @@ class UsersController extends Controller
     {
 
         try {
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
             $user = $this->repository->update($request->all(), $id);
 
             $response = [
                 'message' => 'User updated.',
-                'data'    => $user->toArray(),
+                $user,
             ];
 
             if ($request->wantsJson()) {
                 return response()->json($response);
             }
-        } catch (ValidatorException $e) {
+        } catch (Exception $e) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,
