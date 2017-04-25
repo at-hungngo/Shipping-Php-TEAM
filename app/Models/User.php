@@ -7,15 +7,21 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Role;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
 use App\Bid;
 use App\Order;
 
 class User extends Authenticatable implements Transformable
 {
-    use TransformableTrait;
-    use SoftDeletes;
-    
+    use TransformableTrait, SoftDeletes, HasApiTokens, Notifiable;
+
+    const SEX = [
+        '1' => 'Male',
+        '0' => 'Female'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -63,5 +69,15 @@ class User extends Authenticatable implements Transformable
     public function orders()
     {
         return $this->hasMany(Order::class, 'user_id', 'id');
+    }
+
+    /**
+     * Sex label
+     *
+     * @return sex
+     */
+    public function sexLable()
+    {
+        return self::SEX[$this->sex];
     }
 }

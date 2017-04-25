@@ -13,7 +13,7 @@ class UserCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,8 @@ class UserCreateRequest extends FormRequest
             'point' => 'numeric|min:0',
             'age' => 'numeric|min:0',
             'role_id' => 'numeric',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'sex' => 'required|boolean'
         ];
     }
 }

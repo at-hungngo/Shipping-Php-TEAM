@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 use App\Bid;
 use App\Order;
 

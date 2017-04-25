@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\User;
+use App\Models\User;
 
 class Role extends Model
 {
@@ -35,12 +35,13 @@ class Role extends Model
      * Id of role user or admin
      *
      * @param string $roleName Name of role
+     *
      * @return id
      */
-    public function roleId($roleName)
+    public static function roleId($roleName)
     {
-        $role = $this->where('name', $roleName)->first();
-        if($role){
+        $role = Role::where('name', $roleName)->first();
+        if ($role) {
             return $role->id;
         } else {
             return -1;

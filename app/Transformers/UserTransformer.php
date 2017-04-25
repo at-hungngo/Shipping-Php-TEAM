@@ -28,8 +28,8 @@ class UserTransformer extends TransformerAbstract
             'age'         => (int) $model->age,
             'point'       => (int) $model->point,
             'description' => $model->description,
-            'sex'         => $model->sex,
-            'role'        => $model->role_id,
+            'sex'         => $model->sexLable(),
+            'role'        => $model->role->name,
             'created_at'  => $model->created_at,
             'updated_at'  => $model->updated_at
         ];

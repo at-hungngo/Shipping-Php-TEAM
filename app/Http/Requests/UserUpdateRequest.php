@@ -13,7 +13,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,8 @@ class UserUpdateRequest extends FormRequest
             'point' => 'numeric|min:0',
             'age' => 'numeric|min:0',
             'role_id' => 'numeric',
-            'password' => 'min:6'
+            'password' => 'min:6',
+            'sex' => 'boolean'
         ];
     }
 }

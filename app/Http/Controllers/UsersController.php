@@ -12,6 +12,8 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\Contracts\UserRepository;
 use App\Validators\UserValidator;
 
+use App\Models\Role;
+
 class UsersController extends Controller
 {
 
@@ -54,9 +56,7 @@ class UsersController extends Controller
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->repository->all();
 
-        return response()->json([
-                'data' => $users,
-        ]);
+        return response()->json($users);
     }
 
     /**
@@ -68,7 +68,6 @@ class UsersController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        return '123';
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -76,14 +75,12 @@ class UsersController extends Controller
 
             $response = [
                 'message' => 'User created.',
-                'data'    => $user->toArray(),
+                $user
             ];
 
             if ($request->wantsJson()) {
                 return response()->json($response);
             }
-
-            return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -91,8 +88,6 @@ class UsersController extends Controller
                     'message' => $e->getMessageBag()
                 ]);
             }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -110,11 +105,9 @@ class UsersController extends Controller
 
         if (request()->wantsJson()) {
             return response()->json([
-                'data' => $user,
+                $user,
             ]);
         }
-
-        return view('users.show', compact('user'));
     }
 
 
@@ -127,10 +120,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-
-        $user = $this->repository->find($id);
-
-        return view('users.edit', compact('user'));
+        //
     }
 
 
@@ -158,8 +148,6 @@ class UsersController extends Controller
             if ($request->wantsJson()) {
                 return response()->json($response);
             }
-
-            return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -167,8 +155,6 @@ class UsersController extends Controller
                     'message' => $e->getMessageBag()
                 ]);
             }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
 
@@ -190,7 +176,5 @@ class UsersController extends Controller
                 'deleted' => $deleted,
             ]);
         }
-
-        return redirect()->back()->with('message', 'User deleted.');
     }
 }
