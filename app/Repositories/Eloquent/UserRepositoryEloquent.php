@@ -70,7 +70,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
      */
     public function update(array $attributes, $id)
     {
-        return parent::update(self::setAttributes($attributes));
+        return parent::update(self::setAttributes($attributes), $id);
     }
 
     /**
